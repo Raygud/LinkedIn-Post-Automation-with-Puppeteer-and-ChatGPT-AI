@@ -3,13 +3,16 @@ const axios = require('axios');
 require('dotenv').config();
 
 async function automateLinkedInPost() {
-    const browser = await puppeteer.launch({ headless: false });
-    const context = await browser.createIncognitoBrowserContext();
-    const page = await context.newPage();
-    const username = process.env.LINKEDIN_USERNAME;
-    const password = process.env.LINKEDIN_PASSWORD;
-
     try {
+        // Generate post content using OpenAI
+        const generatedContent = await callOpenAI();
+
+        const browser = await puppeteer.launch({ headless: false });
+        const context = await browser.createIncognitoBrowserContext();
+        const page = await context.newPage();
+        const username = process.env.LINKEDIN_USERNAME;
+        const password = process.env.LINKEDIN_PASSWORD;
+
         await page.goto('https://www.linkedin.com/login');
 
         await page.type('#username', username);
@@ -31,9 +34,6 @@ async function automateLinkedInPost() {
             // Wait for the share box modal to appear
             await page.waitForSelector('.share-box', { visible: true });
 
-            // Generate post content using OpenAI
-            const generatedContent = await callOpenAI();
-
             // Type the generated content in the editor
             await page.type('.editor-content', generatedContent);
 
@@ -50,10 +50,10 @@ async function automateLinkedInPost() {
         } else {
             console.log('Login failed. Check your credentials or the login process.');
         }
+
+        await browser.close();
     } catch (error) {
         console.error('An error occurred:', error);
-    } finally {
-        // await browser.close();
     }
 }
 
@@ -92,5 +92,5 @@ function generatePrompt() {
     return `Write a LinkedIn post as if you are a coding influencer. Share insights and tips on IT-related topics like coding, front-end development, AI, cybersecurity, cloud computing, data science, etc. Choose one or combine related topics to create a unique and informative post. Keep it engaging and avoid personal or team details. Use emojis and provide valuable tips and tricks for your network, showcasing your expertise in the ever-evolving world of IT!`;
 }
 
-callOpenAI();
-automateLinkedInPost()
+// Call the automateLinkedInPost function to initiate the LinkedIn post creation
+automateLinkedInPost();

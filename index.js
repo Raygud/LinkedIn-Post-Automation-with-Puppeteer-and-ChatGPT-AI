@@ -56,7 +56,7 @@ async function automateLinkedInPost() {
     } catch (error) {
         console.error('An error occurred:', error);
     } finally {
-        // await browser.close();
+        await browser.close();
     }
 }
 

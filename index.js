@@ -4,7 +4,7 @@ require('dotenv').config();
 
 // Function to automate LinkedIn post
 async function automateLinkedInPost() {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true });
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
     const username = process.env.LINKEDIN_USERNAME;

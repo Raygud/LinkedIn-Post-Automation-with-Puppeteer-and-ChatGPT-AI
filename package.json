@@ -12,6 +12,6 @@
   "dependencies": {
     "axios": "^1.5.0",
     "dotenv": "^16.3.1",
-    "puppeteer": "^21.3.3"
+    "puppeteer": "18.1.0"
   }
 }

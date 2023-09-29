@@ -7,8 +7,10 @@ async function automateLinkedInPost() {
     const browser = await puppeteer.launch({
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      });    const context = await browser.createIncognitoBrowserContext();
+      });    
+    const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36');
     const username = process.env.LINKEDIN_USERNAME;
     const password = process.env.LINKEDIN_PASSWORD;
 

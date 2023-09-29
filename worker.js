@@ -11,12 +11,19 @@ async function automateLinkedInPost() {
     const password = process.env.LINKEDIN_PASSWORD;
 
     try {
+        console.log("Going to https://www.linkedin.com/login")
         await page.goto('https://www.linkedin.com/login');
+        console.log("https://www.linkedin.com/login accessed")
 
         await page.type('#username', username);
+        console.log("Username added")
+
         await page.type('#password', password);
+        console.log("Password added")
 
         await page.click('.login__form_action_container button[type="submit"]');
+        console.log("Pressing login button")
+
         await page.waitForNavigation();
 
         const loggedInElement = await page.waitForSelector('.feed-identity-module__actor-meta', { timeout: 60000 });

@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "heroku-postbuild": "bash postbuild.bash"
+    "heroku-postbuild": "bash postbuild.bash",
+    "start": "node index.js"
   },
   "author": "Rúni Gudmundarson",
   "license": "ISC",

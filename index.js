@@ -4,7 +4,7 @@ require('dotenv').config();
 
 // Function to automate LinkedIn post
 async function automateLinkedInPost() {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false });
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
     const username = process.env.LINKEDIN_USERNAME;
@@ -47,7 +47,7 @@ async function automateLinkedInPost() {
             });
 
             // Click the "Post" button
-            // await page.click('.share-actions__primary-action');
+            await page.click('.share-actions__primary-action');
 
             console.log('Posted to LinkedIn');
         } else {

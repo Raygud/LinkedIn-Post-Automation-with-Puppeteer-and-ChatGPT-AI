@@ -1,15 +1,26 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const randomUseragent = require('random-useragent');
+const proxyChain = require('proxy-chain');
 const axios = require('axios');
 require('dotenv').config();
 
-// Function to automate LinkedIn post
+puppeteer.use(StealthPlugin());
+
+const USER_AGENT =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36';
+
 async function automateLinkedInPost() {
-    const browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      });    
-    const context = await browser.createIncognitoBrowserContext();
-    const page = await context.newPage();
+  const oldProxyUrl = process.env.PROXY_SERVER;
+  const newProxyUrl = await proxyChain.anonymizeProxy(oldProxyUrl);
+
+  const browser = await puppeteer.launch({
+    headless: false, // Set this to true if you want to run without a visible browser
+    args: ['--no-sandbox', '--disable-setuid-sandbox', `--proxy-server=${newProxyUrl}`],
+  });
+
+  const context = await browser.createIncognitoBrowserContext();
+  const page = await context.newPage();
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36');
     const username = process.env.LINKEDIN_USERNAME;
     const password = process.env.LINKEDIN_PASSWORD;

@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "bash postbuild.bash",
     "start": "node index.js"
   },
   "author": "Rúni Gudmundarson",

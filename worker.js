@@ -26,7 +26,7 @@ async function automateLinkedInPost() {
 
         await page.waitForNavigation();
 
-        const loggedInElement = await page.waitForSelector('.feed-identity-module__actor-meta', { timeout: 60000 });
+        const loggedInElement = await page.waitForSelector('.feed-identity-module__actor-meta', { timeout: 120000 });
 
         if (loggedInElement) {
             console.log('Successfully logged in!');
